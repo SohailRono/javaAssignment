@@ -30,43 +30,52 @@ console.log(woodResult);
 
 
 //brickCalculator
-function brickCalculator(tala)
-{
-    var brickFeet = 1000;
-    var floorHeight = 0;
-    var totalBrickPerFloor = 0;
-    var total = 0;
-    var total10to20 = 0;
+function brickCalculator(buildingStorey){
+    const brickPerFeet = 1000;
+    let floorHeight = 0;
+    let totalBrickPerFloor = 0;
+    let totalForFirstTen = 0;
+    let totalForSecondTen = 0;
+    let total = 0;
 
-    for (let i = 1; i <= tala; i++) 
+    if(buildingStorey <= 0)
     {
-        
-        if(i <= 10)
-        {
-            floorHeight = 15;
-            totalBrickPerFloor = brickFeet * floorHeight;
-            total = totalBrickPerFloor * i;
-        }
-        else if(i > 10 && i <= 20)
-        {
-            floorHeight = 12;
-            totalBrickPerFloor = brickFeet * floorHeight;
-            total += totalBrickPerFloor * (i-10);
-        }
-
-        else(i > 20)
-        {
-            floorHeight = 10;
-            totalBrickPerFloor = brickFeet * floorHeight;
-            total += totalBrickPerFloor * (i-20);
-        }
+        return 'Building must be non negative or greater then 0';
     }
-    return total;
+    else if(buildingStorey <= 10)
+    {
+        floorHeight = 15;
+        totalBrickPerFloor = floorHeight * brickPerFeet;
+        totalForFirstTen = totalBrickPerFloor * buildingStorey;
+        total = totalForFirstTen;
+        return total;
+    }
+
+    else if(buildingStorey <= 20)
+    {
+        totalForFirstTen = 15 * 1000 * 10;
+        floorHeight = 12;
+        totalBrickPerFloor = floorHeight * brickPerFeet;
+        totalForSecondTen = totalBrickPerFloor * (buildingStorey-10);
+        total = totalForFirstTen + totalForSecondTen;
+        return total;
+    }
+
+    else
+    {
+        totalForFirstTen = 15 * 1000 * 10;
+        totalForSecondTen = 12 * 1000 * 10;
+
+        floorHeight = 10;
+        totalBrickPerFloor = floorHeight * brickPerFeet;
+        var totalForOthers = totalBrickPerFloor * (buildingStorey-20);
+        total = totalForFirstTen + totalForSecondTen + totalForOthers;
+        return total;
+    }
+
 }
-
-var s = brickCalculator(20);
-console.log(s);
-
+var resCalculator = brickCalculator(15);
+    console.log(resCalculator);
 
 //tinyFriend for get smallest name
 function tinyFriend(names){
